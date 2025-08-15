@@ -29,6 +29,67 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.mcp-info {
+    margin-top: 15px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.mcp-url {
+    color: #495057;
+    font-size: 0.95em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mcp-url code {
+    background: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9em;
+    color: #0d6efd;
+    border: 1px solid #e9ecef;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    display: inline-block;
+    word-break: break-all;
+}
+
+.copy-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,123,255,0.2);
+}
+
+.copy-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+}
+
+.copy-btn:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 4px rgba(0,123,255,0.2);
+}
+
 .header h1 {
     color: #2c3e50;
     margin-bottom: 10px;

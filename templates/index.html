@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Service To-do List App</title>
+    <title>App Service MCP To-do List App</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>App Service To-do List App</h1>
-            <p>With MCP and Agent Integration</p>
+            <h1>App Service MCP To-do List App</h1>
+            <div class="mcp-info">
+                <div class="mcp-url">
+                    <span>MCP Server:</span>
+                    <code id="mcpUrl">{{ mcp_server_url }}</code>
+                    <button id="copyBtn" class="copy-btn" onclick="copyMcpUrl()" title="Copy MCP Server URL">
+                        📋 Copy
+                    </button>
+                </div>
+            </div>
         </div>
 
         <!-- Add Todo Section -->
@@ -55,5 +63,41 @@
     </div>
 
     <script src="/static/js/todo.js"></script>
+    <script>
+        function copyMcpUrl() {
+            const mcpUrl = document.getElementById('mcpUrl').textContent;
+            const copyBtn = document.getElementById('copyBtn');
+            
+            navigator.clipboard.writeText(mcpUrl).then(function() {
+                // Change button text temporarily to show success
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '✅ Copied!';
+                copyBtn.style.background = '#28a745';
+                
+                setTimeout(function() {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.style.background = '';
+                }, 2000);
+            }).catch(function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = mcpUrl;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Show success feedback
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '✅ Copied!';
+                copyBtn.style.background = '#28a745';
+                
+                setTimeout(function() {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.style.background = '';
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>

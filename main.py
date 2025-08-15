@@ -9,6 +9,7 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from typing import Any, Dict, Optional
 import logging
+import os
 from contextlib import asynccontextmanager
 from datetime import datetime
 
@@ -398,7 +399,19 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
     """Serve the main todo list page"""
-    return templates.TemplateResponse("index.html", {"request": request})
+    # Determine if running locally or in Azure App Service
+    host = request.headers.get("host", "localhost:8000")
+    
+    # Check if running in Azure App Service
+    if "azurewebsites.net" in host:
+        mcp_server_url = f"https://{host}/mcp/stream"
+    else:
+        mcp_server_url = f"http://{host}/mcp/stream"
+    
+    return templates.TemplateResponse("index.html", {
+        "request": request,
+        "mcp_server_url": mcp_server_url
+    })
 
 @app.get("/health")
 async def health():

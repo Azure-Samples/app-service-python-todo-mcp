@@ -6,9 +6,7 @@ param environmentName string
 @description('Primary location for all resources')
 param location string = resourceGroup().location
 
-@description('Secret key for Flask application')
-@secure()
-param secretKey string = ''
+
 
 // Generate unique resource token
 var resourceToken = uniqueString(subscription().id, resourceGroup().id, location, environmentName)
@@ -63,10 +61,6 @@ resource appService 'Microsoft.Web/sites@2024-04-01' = {
       ftpsState: 'FtpsOnly'
       appCommandLine: 'python -m uvicorn main:app --host 0.0.0.0 --port 8000'
       appSettings: [
-        {
-          name: 'SECRET_KEY'
-          value: secretKey
-        }
         {
           name: 'WEBSITES_PORT'
           value: '8000'
